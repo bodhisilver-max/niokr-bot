@@ -93,6 +93,7 @@ def build_data(path):
         if cur and cur["excluded"] and tx[1]:
             extra = " ".join(x for x in tx[3:] if x)
             if extra: cur["note"] = (cur.get("note", "") + " " + extra).strip()
+                      
     DATA = []
     for t in themes:
         stl = []
@@ -170,9 +171,19 @@ body{margin:0;font-family:Segoe UI,Arial}
     with open(HTML_PATH, "w", encoding="utf-8") as f:
         f.write("\n".join(h))
 
+DOC_URL = "https://github.com/bodhiisilver-max/niokr-bot/raw/main/niokr.docx"
 DATA = []
+if not os.path.exists(DOC_PATH):
+    try:
+        import urllib.request
+        urllib.request.urlretrieve(DOC_URL, DOC_PATH)
+        print("📥 docx скачан из GitHub")
+    except Exception as e:
+        print("⚠️ Не скачать docx:", e)
 if os.path.exists(DOC_PATH):
     DATA = build_data(DOC_PATH); build_html(DATA)
+
+
 print(f"📚 Тем: {len(DATA)} | этапов: {sum(len(t['stages']) for t in DATA)}")
 
 bot = telebot.TeleBot(TOKEN)
