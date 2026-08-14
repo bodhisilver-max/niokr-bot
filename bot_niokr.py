@@ -6,7 +6,7 @@ from docx.oxml.ns import qn
 from PIL import Image
 
 TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
-PASSWORDS = {"niokr2026": "admin"}  # ← смени админ-пароль!
+PASSWORDS = {"niokr2026": "admin", "niokr2026v": "viewer"}
 DOC_PATH, HTML_PATH = "niokr.docx", "niokr_app.html"
 
 REPORT, DEF_YEAR, GREEN = (2026, 2), 2026, (4, 11)
