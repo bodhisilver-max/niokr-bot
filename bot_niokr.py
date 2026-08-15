@@ -260,6 +260,16 @@ def webhook():
 
 bot.remove_webhook()
 bot.set_webhook(WEBHOOK_URL)
+@bot.message_handler(func=lambda m: True, content_types=["text"])
+def catch_all(m):
+    if m.chat.id not in ROLE:
+        bot.send_message(m.chat.id, "🔒 Начни с команды /start — и введи пароль.")
+    else:
+        bot.send_message(m.chat.id, "Выбери действие на клавиатуре 👇", reply_markup=kb())
+
+
+
+
 print("🤖 Бот в строю! Webhook:", WEBHOOK_URL)
 
 if __name__ == "__main__":
