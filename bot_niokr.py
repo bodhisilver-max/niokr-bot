@@ -221,6 +221,10 @@ def check(m):
     else:
         bot.send_message(m.chat.id, "❌ Неверный пароль.")
 
+@bot.message_handler(func=lambda m: m.chat.id not in ROLE, content_types=["text"])
+def catch_all(m):
+    bot.send_message(m.chat.id, "🔒 Всё начинается с команды /start — отправь её и введи пароль.")
+
 @bot.message_handler(content_types=["document"])
 def on_doc(m):
     global DATA
@@ -260,13 +264,6 @@ def webhook():
 
 bot.remove_webhook()
 bot.set_webhook(WEBHOOK_URL)
-@bot.message_handler(func=lambda m: True, content_types=["text"])
-def catch_all(m):
-    if m.chat.id not in ROLE:
-        bot.send_message(m.chat.id, "🔒 Начни с команды /start — и введи пароль.")
-    else:
-        bot.send_message(m.chat.id, "Выбери действие на клавиатуре 👇", reply_markup=kb())
-
 
 
 
